@@ -24,6 +24,7 @@ struct SearchView: View {
                 .sunshineOrApocalypseBody()
             
             Spacer()
+            Spacer()
 
             // Since there is only 1 textfield, I am ok adding this specifically to the view.
             // In the instance there would be another textfield, I would break this out into a fragment view for reusability.
