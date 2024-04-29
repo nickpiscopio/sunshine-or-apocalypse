@@ -190,8 +190,9 @@
 		BDBB31812BE00E4B00E8618C /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				BDBB31AB2BE01D8300E8618C /* Presentation */,
+				BDBB31D32BE05DEB00E8618C /* Data */,
 				BDBB31AA2BE01D6400E8618C /* Domain */,
+				BDBB31AB2BE01D8300E8618C /* Presentation */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -224,14 +225,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		BDBB318F2BE010E900E8618C /* Model */ = {
+		BDBB318F2BE010E900E8618C /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				BDBB31D02BE0392500E8618C /* Dto */,
 				BDBB31902BE0111500E8618C /* SunshineOrApocalypseAlert.swift */,
 				BDBB31D12BE0393200E8618C /* Weather.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		BDBB31942BE0133600E8618C /* Extensions */ = {
@@ -276,8 +277,10 @@
 		BDBB31AA2BE01D6400E8618C /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				BDBB31B12BE01EA000E8618C /* Repository */,
-				BDBB31AE2BE01E6700E8618C /* Networking */,
+				BDBB318F2BE010E900E8618C /* Models */,
+				BDBB31BF2BE022B700E8618C /* Services */,
+				BDBB31CD2BE038BD00E8618C /* States */,
+				BDBB31892BE00F7000E8618C /* Managers */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -285,14 +288,10 @@
 		BDBB31AB2BE01D8300E8618C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				BDBB31CD2BE038BD00E8618C /* State */,
 				BDBB31872BE00F2D00E8618C /* DependencyCoordinator.swift */,
 				BDBB319E2BE0159100E8618C /* Constants */,
 				BDBB31942BE0133600E8618C /* Extensions */,
-				BDBB31892BE00F7000E8618C /* Managers */,
-				BDBB318F2BE010E900E8618C /* Model */,
 				BDBB31992BE0153200E8618C /* Modifiers */,
-				BDBB31BF2BE022B700E8618C /* Services */,
 				BDBB318C2BE0103600E8618C /* Views */,
 			);
 			path = Presentation;
@@ -308,12 +307,12 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		BDBB31B12BE01EA000E8618C /* Repository */ = {
+		BDBB31B12BE01EA000E8618C /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
 				BDBB31AC2BE01D9D00E8618C /* WeatherRepository.swift */,
 			);
-			path = Repository;
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		BDBB31BC2BE020EA00E8618C /* Requests */ = {
@@ -350,12 +349,12 @@
 			path = Responses;
 			sourceTree = "<group>";
 		};
-		BDBB31CD2BE038BD00E8618C /* State */ = {
+		BDBB31CD2BE038BD00E8618C /* States */ = {
 			isa = PBXGroup;
 			children = (
 				BDBB31CE2BE038CF00E8618C /* WatherResultsState.swift */,
 			);
-			path = State;
+			path = States;
 			sourceTree = "<group>";
 		};
 		BDBB31D02BE0392500E8618C /* Dto */ = {
@@ -364,6 +363,15 @@
 				BDBB31CB2BE036AC00E8618C /* WeatherDto.swift */,
 			);
 			path = Dto;
+			sourceTree = "<group>";
+		};
+		BDBB31D32BE05DEB00E8618C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				BDBB31B12BE01EA000E8618C /* Repositories */,
+				BDBB31AE2BE01E6700E8618C /* Networking */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
