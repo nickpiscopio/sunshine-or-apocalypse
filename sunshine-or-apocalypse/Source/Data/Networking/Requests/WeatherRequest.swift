@@ -17,7 +17,7 @@ enum WeatherRequest: ApiRequest {
     var path: String {
         switch self {
         case .fetchWeather(let dto):
-            return "?lat=\(dto.lat)&lon=\(dto.long)&units=\(dto.units)&appid=\(dto.appId)"
+            return "?lat=\(dto.coordinates.lat)&lon=\(dto.coordinates.long)&units=\(dto.units)&appid=\(dto.appId)"
         }
     }
     

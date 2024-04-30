@@ -11,6 +11,7 @@ import Combine
 class DependencyCoordinator: ObservableObject {
     // Services
     @Published var weatherService = WeatherService(repo: WeatherRepository())
+    @Published var locationService = LocationService()
     
     // Managers
     @Published var alertManager = AlertManager()

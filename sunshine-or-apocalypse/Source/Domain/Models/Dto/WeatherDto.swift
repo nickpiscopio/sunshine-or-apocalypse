@@ -8,8 +8,7 @@
 import Foundation
 
 struct WeatherDto {
-    let lat: String
-    let long: String
+    let coordinates: Coordinates
     let units: String
     let appId: String
 }

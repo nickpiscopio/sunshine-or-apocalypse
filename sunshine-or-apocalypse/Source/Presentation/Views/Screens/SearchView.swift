@@ -26,16 +26,9 @@ struct SearchView: View {
             Spacer()
             Spacer()
 
-            // Since there is only 1 textfield, I am ok adding this specifically to the view.
-            // In the instance there would be another textfield, I would break this out into a fragment view for reusability.
-            TextField("", text: $viewModel.city)
+            TextField("", text: $viewModel.addressString)
                 .textFieldStyle(SunshineOrApocalypseTextFieldStyle())
                 .multilineTextAlignment(.leading)
-                .cornerRadius(viewModel.cornerRadius)
-                .overlay(
-                    RoundedRectangle(cornerRadius: viewModel.cornerRadius)
-                        .stroke(Color.sunshineOrApocalypseBlack50, lineWidth: 2)
-                )
             
             Button {
                 viewModel.search()
@@ -52,11 +45,9 @@ struct SearchView: View {
 }
 
 class SearchViewModel: ObservableObject {
-    @Published var city: String = ""
+    @Published var addressString: String = ""
     @Published var searchResultsFound: Bool = false
     @Published var isLoading: Bool = false
-    
-    let cornerRadius: CGFloat = .dimen8
     
     private var coordinator: DependencyCoordinator?
     
@@ -67,25 +58,42 @@ class SearchViewModel: ObservableObject {
     func search() {
         isLoading = true
         
-        // The appId is left out on purpose to not commit it to source control.
-        // TODO: make the lat/long dynamic.
-        let dto = WeatherDto(lat: "44.34", long: "10.99", units: "imperial", appId: "")
-        coordinator?.weatherService.fetchWeather(dto: dto) { success, error in
-            self.isLoading = false
-            
-            if error != nil {
-                self.displayError()
+        coordinator?.locationService.getCoordinates(fromAddressString: addressString) { coordinates, coordinatesError in
+            if coordinatesError {
+                self.isLoading = false
+
+                self.displayCoorindatesError()
                 return
             }
             
-            guard let weatherResults = success?.data?.main else {
-                self.displayError()
-                return
+            // The appId is left out on purpose to not commit it to source control.
+            let dto = WeatherDto(coordinates: Coordinates(lat: coordinates.lat, long: coordinates.long), units: "imperial", appId: "")
+            self.coordinator?.weatherService.fetchWeather(dto: dto) { success, error in
+                self.isLoading = false
+                
+                if error != nil {
+                    self.displayError()
+                    return
+                }
+                
+                guard let weatherResults = success?.data else {
+                    self.displayError()
+                    return
+                }
+                
+                let weather = Weather(temp: weatherResults.main.temp, description: weatherResults.weather[0].description)
+                self.coordinator?.weatherResultsState.setState(weather: weather)
+                self.searchResultsFound = true
             }
-            
-            self.coordinator?.weatherResultsState.setState(weather: weatherResults)
-            self.searchResultsFound = true
-        }
+        }        
+    }
+    
+    private func displayCoorindatesError() {
+        let title = "Invalid location"
+        let description = "Please enter a valid location in the following format City, State"
+        let positiveAction = AlertAction(title: "OK") { }
+        
+        self.coordinator?.alertManager.display(SunshineOrApocalypseAlert(title: title, description: description, positiveAction: positiveAction))
     }
     
     private func displayError() {

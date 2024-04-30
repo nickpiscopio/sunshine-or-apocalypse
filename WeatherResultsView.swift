@@ -36,21 +36,11 @@ class WeatherResultsViewModel: ObservableObject {
         
         let weatherState = self.coordinator?.weatherResultsState.getState()
         temp = Int((weatherState?.temp ?? 0.0).rounded())
-        setTitle()
+        setTitle(withDescription: weatherState?.description ?? "")
     }
     
-    private func setTitle() {
-        if temp < 20 {
-            title = "Apocalypse 🧊"
-            return
-        }
-        
-        if temp > 80 {
-            title = "Apocalypse 🔥"
-            return
-        }
-        
-        title = "Could be sunshine ☀️"
+    private func setTitle(withDescription description: String) {
+        title = WeatherTitleUtil.getTitle(fromTemp: temp, backupDescription: description)
     }
 }
 

@@ -7,11 +7,7 @@
 
 import Foundation
 
-protocol WeatherServiceProtocol {
-    func fetchWeather(dto: WeatherDto, completionHandler: @escaping (ApiSuccess<WeatherResponse>?, ApiError?) -> Void)
-}
-
-class WeatherService: WeatherServiceProtocol {
+class WeatherService {
     var repo: WeatherRepository
     init(repo: WeatherRepository) {
         self.repo = repo
@@ -21,4 +17,3 @@ class WeatherService: WeatherServiceProtocol {
         repo.fetchWeather(dto: dto, completionHandler: completionHandler)
     }
 }
-

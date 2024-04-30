@@ -8,5 +8,15 @@
 import Foundation
 
 struct WeatherResponse: Codable {
-    let main: Weather
+    let main: MainWeather
+    let weather: [WeatherDescription]
+}
+
+struct MainWeather: Codable {
+    let temp: Double
+}
+
+struct WeatherDescription: Codable {
+    let description: String
+    let icon: String
 }
